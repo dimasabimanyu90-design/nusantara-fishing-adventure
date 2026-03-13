@@ -23,31 +23,34 @@
   --green:#3ddc84;--red:#ff4757;
   --purple:#a855f7;--cyan:#22d3ee;
   --text:#dce8f5;--muted:#5a7898;--dim:#2a4060;
-  --water1:#0a2a4a;--water2:#0d3a5c;--water3:#082035;
 }
 html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Courier New',monospace}
 #g{width:100%;height:100%;position:relative;overflow:hidden;background:var(--bg)}
 .scr{position:absolute;inset:0;display:none;flex-direction:column;background:var(--bg)}
 .scr.on{display:flex}
-/* MAP */
-#sMap{background:#050d18}
+
+/* ══ MAP ══ */
+#sMap{background:#04090f}
 #mapHdr{background:var(--panel);border-bottom:2px solid var(--border2);padding:6px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.game-title{font-size:14px;font-weight:700;color:var(--gold);letter-spacing:3px}
+.game-title{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:3px}
 .hdr-stats{display:flex;gap:10px}
 .hstat{font-size:10px;color:var(--muted);letter-spacing:1px}
 .hstat b{color:var(--gold);font-size:12px}
 #mapWrap{flex:1;position:relative;overflow:hidden}
 #mapC{width:100%;height:100%;display:block}
-#mapInfo{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,var(--panel) 40%);padding:12px 12px 6px;pointer-events:none}
-.loc-info-name{font-size:13px;font-weight:700;color:var(--gold);letter-spacing:2px}
-.loc-info-sub{font-size:10px;color:var(--muted);margin-top:2px}
-.loc-info-fish{font-size:10px;color:var(--cyan);margin-top:3px}
+#locPanel{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(5,12,25,0.97) 30%);padding:14px 14px 8px;pointer-events:none;transition:opacity 0.3s}
+.lp-name{font-size:14px;font-weight:700;color:var(--gold);letter-spacing:2px}
+.lp-region{font-size:10px;color:var(--muted);margin-top:1px}
+.lp-fish{font-size:10px;color:var(--cyan);margin-top:4px}
+.lp-spots{font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:1px}
 #mapFtr{background:var(--panel);border-top:2px solid var(--border2);padding:8px 10px;display:flex;gap:8px;flex-shrink:0}
 .mbtn{flex:1;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:9px 4px;border-radius:6px;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;letter-spacing:1px;transition:all 0.1s;text-align:center}
 .mbtn:active{transform:scale(0.95);background:var(--border2)}
 .mbtn.gold{background:#2a1f00;border-color:var(--gold2);color:var(--gold)}
 .mbtn.blue{background:#001a3a;border-color:var(--blue2);color:var(--blue)}
-/* FISH */
+.mbtn.purple{background:#1a0a2e;border-color:#7c3aed;color:var(--purple)}
+
+/* ══ FISH ══ */
 #sFish{background:#050d18}
 #fishHdr{background:var(--panel);border-bottom:2px solid var(--border2);padding:5px 8px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;min-height:36px}
 .fh-loc{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:1px}
@@ -74,7 +77,11 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
 #fishHudStats{position:absolute;top:40px;left:6px;display:flex;flex-direction:column;gap:3px;pointer-events:none}
 .hpill{background:rgba(0,0,0,0.75);border:1px solid var(--dim);border-radius:4px;padding:2px 7px;font-size:9px;color:var(--muted);letter-spacing:1px}
 .hpill b{color:var(--gold)}
-/* NPC */
+/* Weather HUD */
+#weatherHud{position:absolute;top:40px;right:6px;pointer-events:none}
+.whud{background:rgba(0,0,0,0.75);border:1px solid var(--dim);border-radius:4px;padding:2px 7px;font-size:10px;text-align:center}
+
+/* ══ NPC ══ */
 #sNpc{background:var(--bg)}
 #npcHdr{background:var(--panel);border-bottom:2px solid var(--border2);padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .npc-hdr-title{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:2px}
@@ -87,11 +94,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
 #npcRole{font-size:9px;color:var(--muted);margin-bottom:8px;letter-spacing:1px}
 #dialogText{font-size:11px;color:var(--text);line-height:1.6;min-height:36px;margin-bottom:8px;padding:8px;background:var(--bg3);border:1px solid var(--dim);border-radius:6px}
 #choices{display:flex;flex-direction:column;gap:5px;max-height:130px;overflow-y:auto}
-.choice{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:6px;font-size:10px;font-family:'Courier New',monospace;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.4}
+.choice{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:6px;font-size:10px;font-family:'Courier New',monospace;cursor:pointer;text-align:left;line-height:1.4}
 .choice:active{background:var(--border2)}
 .choice.q{border-color:#7c3aed;color:#c084fc}
 .choice.ok{border-color:var(--green);color:var(--green)}
-/* QUEST */
+
+/* ══ QUEST ══ */
 #sQuest{background:var(--bg)}
 #qHdr{background:var(--panel);border-bottom:2px solid var(--border2);padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 #qBody{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:8px}
@@ -109,7 +117,31 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
 .qpbg{flex:1;height:5px;background:var(--dim);border-radius:3px;overflow:hidden}
 .qpfill{height:100%;background:linear-gradient(90deg,#7c3aed,#c084fc);border-radius:3px;transition:width 0.4s}
 .qrew{font-size:9px;color:var(--gold);letter-spacing:1px}
-/* CATCH */
+
+/* ══ SHOP ══ */
+#sShop{background:var(--bg)}
+#shopHdr{background:var(--panel);border-bottom:2px solid var(--border2);padding:7px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#shopBody{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.shop-coins{font-size:11px;color:var(--muted);margin-bottom:4px;letter-spacing:1px}
+.shop-coins b{color:var(--gold)}
+.rod-card{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.rod-card.owned{border-color:var(--green)}
+.rod-card.equipped{border-color:var(--gold);background:#1a1200}
+.rod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.rod-name{font-size:13px;font-weight:700;color:var(--text);letter-spacing:1px}
+.rod-badge{font-size:9px;padding:2px 8px;border-radius:3px;letter-spacing:1px;font-weight:700}
+.rb-owned{background:rgba(61,220,132,0.15);color:var(--green)}
+.rb-equip{background:rgba(245,200,66,0.2);color:var(--gold)}
+.rb-lock{background:rgba(90,120,152,0.15);color:var(--muted)}
+.rod-stats{display:flex;gap:12px;margin:6px 0;font-size:10px;color:var(--muted)}
+.rod-stats span{color:var(--cyan)}
+.rod-desc{font-size:10px;color:var(--muted);margin-bottom:8px}
+.rod-btn{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px;border-radius:6px;font-size:11px;font-family:'Courier New',monospace;cursor:pointer;font-weight:700;letter-spacing:1px}
+.rod-btn.buy{background:#001a3a;border-color:var(--blue2);color:var(--blue)}
+.rod-btn.equip{background:#1a1200;border-color:var(--gold2);color:var(--gold)}
+.rod-btn:disabled{opacity:0.4;cursor:not-allowed}
+
+/* ══ CATCH POPUP ══ */
 #catchPop{position:absolute;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:99;flex-direction:column}
 #catchPop.on{display:flex}
 #catchCard{background:var(--panel);border-radius:16px;padding:24px 28px;text-align:center;width:min(280px,88%);animation:popIn 0.4s cubic-bezier(.34,1.56,.64,1)}
@@ -124,12 +156,17 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
 .cc-coins{font-size:20px;font-weight:700;color:var(--gold);margin-bottom:4px}
 .cc-desc{font-size:10px;color:var(--muted);margin-bottom:14px;line-height:1.5}
 .cc-btn{width:100%;background:#001a3a;border:1px solid var(--blue2);color:var(--blue);padding:10px;border-radius:8px;font-size:12px;font-family:'Courier New',monospace;cursor:pointer;font-weight:700;letter-spacing:2px}
-/* TOAST */
+
+/* ══ TOAST ══ */
 #toast{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--gold2);border-radius:20px;padding:6px 16px;font-size:11px;color:var(--gold);opacity:0;transition:opacity 0.3s;pointer-events:none;z-index:200;white-space:nowrap;letter-spacing:1px}
+
+/* Weather overlay */
+.rain-canvas{position:absolute;inset:0;pointer-events:none;z-index:2}
 </style>
 </head>
 <body>
 <div id="g">
+
 <!-- MAP -->
 <div id="sMap" class="scr on">
   <div id="mapHdr">
@@ -139,31 +176,36 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
       <div class="hstat">IKAN <b id="mCatch">0</b></div>
     </div>
   </div>
-  <div id="mapWrap"><canvas id="mapC"></canvas>
-    <div id="mapInfo">
-      <div class="loc-info-name" id="miName">DANAU TOBA</div>
-      <div class="loc-info-sub" id="miSub">Sumatra Utara · 3 Spot</div>
-      <div class="loc-info-fish" id="miFish">Mas · Mujair · Gabus · Dekke</div>
+  <div id="mapWrap">
+    <canvas id="mapC"></canvas>
+    <div id="locPanel">
+      <div class="lp-name" id="lpName">DANAU TOBA</div>
+      <div class="lp-region" id="lpRegion">Sumatra Utara</div>
+      <div class="lp-fish" id="lpFish">Mas · Mujair · Gabus · Dekke</div>
+      <div class="lp-spots" id="lpSpots">3 SPOT TERSEDIA</div>
     </div>
   </div>
   <div id="mapFtr">
     <button class="mbtn" onclick="S('sQuest');renderQuests()">QUEST</button>
     <button class="mbtn gold" onclick="goFish()">MANCING ►</button>
-    <button class="mbtn blue" onclick="goNPC('map')">BICARA NPC</button>
+    <button class="mbtn purple" onclick="S('sShop');renderShop()">TOKO</button>
+    <button class="mbtn blue" onclick="goNPC('map')">NPC</button>
   </div>
 </div>
+
 <!-- FISH -->
 <div id="sFish" class="scr">
   <div id="fishHdr">
     <div><div class="fh-loc" id="fhLoc">-</div><div class="fh-spot" id="fhSpot">-</div></div>
-    <div class="fh-right" id="fhRight">ROD: BAMBU</div>
+    <div class="fh-right" id="fhRight">BAMBU</div>
   </div>
   <canvas id="fishC"></canvas>
+  <canvas class="rain-canvas" id="rainC"></canvas>
   <div id="fishUI">
     <div id="barsArea">
       <div class="brow" id="bCast" style="display:none"><span class="blbl">LEMPAR</span><div class="bbg"><div class="bfill" id="bCastF" style="width:0%;background:linear-gradient(90deg,#3ddc84,#f5c842,#ff4757)"></div></div></div>
       <div class="brow" id="bReel" style="display:none"><span class="blbl">JARAK</span><div class="bbg"><div class="bfill" id="bReelF" style="width:0%;background:linear-gradient(90deg,#ff4757,#f5c842,#3ddc84)"></div></div></div>
-      <div class="brow" id="bTens" style="display:none"><span class="blbl">SENAR</span><div class="bbg"><div class="bfill" id="bTensF" style="width:40%;background:var(--green)"></div></div></div>
+      <div class="brow" id="bTens" style="display:none"><span class="blbl">SENAR</span><div class="bbg"><div class="bfill" id="bTensF" style="width:40%"></div></div></div>
     </div>
     <div id="btnsArea">
       <button class="fbtn back" onclick="leaveSpot()">◄</button>
@@ -178,7 +220,9 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
     <div class="hpill">KOIN <b id="fCoin">0</b></div>
     <div class="hpill">IKAN <b id="fCatch">0</b></div>
   </div>
+  <div id="weatherHud"><div class="whud" id="wHud">☀️</div></div>
 </div>
+
 <!-- NPC -->
 <div id="sNpc" class="scr">
   <div id="npcHdr">
@@ -196,6 +240,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
     <div id="choices"></div>
   </div>
 </div>
+
 <!-- QUEST -->
 <div id="sQuest" class="scr">
   <div id="qHdr">
@@ -204,6 +249,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
   </div>
   <div id="qBody"></div>
 </div>
+
+<!-- SHOP -->
+<div id="sShop" class="scr">
+  <div id="shopHdr">
+    <span style="font-size:12px;font-weight:700;color:var(--gold);letter-spacing:2px">TOKO PANCING</span>
+    <button class="back-sm" onclick="S('sMap')">◄ KEMBALI</button>
+  </div>
+  <div id="shopBody"></div>
+</div>
+
 <!-- CATCH POPUP -->
 <div id="catchPop">
   <div id="catchCard">
@@ -215,16 +270,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Co
     <button class="cc-btn" onclick="closeCatch()">[ SIMPAN KE KOLEKSI ]</button>
   </div>
 </div>
+
 <div id="toast"></div>
 </div>
 
 <script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
 const FDB={
   mas:{n:'Ikan Mas',e:'🐠',r:'common',min:150,max:400,d:'Ikan air tawar populer Nusantara'},
   mujair:{n:'Ikan Mujair',e:'🐟',r:'common',min:100,max:320,d:'Asli Danau Toba, lezat dibakar'},
   gabus:{n:'Ikan Gabus',e:'🐡',r:'rare',min:500,max:1400,d:'Predator ganas air tawar'},
   dekke:{n:'Dekke Mas Toba',e:'🎏',r:'epic',min:2000,max:6000,d:'Sangat sakral dalam adat Batak'},
-  napoleon:{n:'Napoleon Wrasse',e:'🐠',r:'legendary',min:8000,max:22000,d:'Raja karang, dilindungi di banyak negara'},
+  napoleon:{n:'Napoleon Wrasse',e:'🐠',r:'legendary',min:8000,max:22000,d:'Raja karang, ikan terbesar terumbu'},
   kakap:{n:'Kakap Merah',e:'🐟',r:'rare',min:700,max:2000,d:'Favorit nelayan Maluku & Papua'},
   kerapu:{n:'Kerapu Sunu',e:'🐡',r:'rare',min:600,max:1800,d:'Hidup di celah terumbu karang'},
   kupu:{n:'Ikan Kupu-Kupu',e:'🦋',r:'rare',min:350,max:900,d:'Warna-warni indah penanda karang sehat'},
@@ -240,107 +299,165 @@ const FDB={
   opudi:{n:'Ikan Opudi',e:'🐠',r:'rare',min:600,max:1600,d:'Endemik Sulawesi, warna biru terang'},
 };
 
+const RODS=[
+  {id:'bambu',name:'Joran Bambu',icon:'🎋',power:1,speed:1,price:0,desc:'Starter rod, tahan banting'},
+  {id:'fiber',name:'Fiber Glass',icon:'🎣',power:1.6,speed:1.4,price:800,desc:'+60% kekuatan lempar'},
+  {id:'carbon',name:'Carbon Fiber',icon:'⚡',power:2.5,speed:2.0,price:3000,desc:'Pro angler, ringan & kuat'},
+  {id:'titan',name:'Titanium Elite',icon:'💎',power:4.0,speed:3.0,price:12000,desc:'Rod terbaik, ikan legendary gampang'},
+];
+
 const LOCS=[
-  {id:'toba',name:'Danau Toba',region:'Sumatra Utara',col:'#0a3a5a',wCol:'#1060a0',
+  {id:'toba',name:'Danau Toba',region:'Sumatra Utara',col:'#0a3a5a',wCol:'#1060a0',skyCol:'#0d2a45',
    spots:[
-     {id:'selatan',name:'Pesisir Selatan',x:.28,y:.55,fish:['mas','mujair','gabus'],desc:'Spot pemula, tenang'},
-     {id:'tengah',name:'Tengah Danau',x:.50,y:.38,fish:['gabus','dekke','mujair'],desc:'Arus deras, ikan besar'},
-     {id:'samosir',name:'P. Samosir',x:.56,y:.56,fish:['dekke','mas','gabus'],desc:'Spot legendaris adat'},
+     {id:'selatan',name:'Pesisir Selatan',x:.28,y:.55,fish:['mas','mujair','gabus'],desc:'Spot pemula'},
+     {id:'tengah',name:'Tengah Danau',x:.50,y:.38,fish:['gabus','dekke','mujair'],desc:'Arus deras'},
+     {id:'samosir',name:'P. Samosir',x:.56,y:.56,fish:['dekke','mas','gabus'],desc:'Spot legendaris'},
    ],
    npc:{name:'Pak Tohir',title:'NELAYAN SENIOR TOBA',emo:'👴',
-     intro:'Horas! Selamat datang di Danau Toba, huta ni ompung. Saya sudah 40 tahun mancing di sini. Airnya dingin, tapi ikannya besar-besar!',
-     lore:'Danau Toba lahir 74.000 tahun lalu dari letusan supervolcano. Dalamnya 505 meter — danau vulkanik terbesar di dunia. Masyarakat Batak menyebutnya "Tao" dan percaya roh leluhur menjaganya.',
+     intro:'Horas! Selamat datang di Danau Toba. Saya sudah 40 tahun mancing di sini. Airnya dingin, ikannya besar-besar!',
+     lore:'Danau Toba lahir 74.000 tahun lalu dari letusan supervolcano. Dalamnya 505 meter — danau vulkanik terbesar di dunia.',
      tip:'Spot terbaik di Tengah Danau waktu subuh. Gunakan umpan cacing merah untuk Dekke Mas.',
    },
    quests:['q_toba_1','q_toba_2','q_toba_3'],
-   mapX:.25,mapY:.32,
+   mapX:.24,mapY:.31,
   },
-  {id:'raja',name:'Raja Ampat',region:'Papua Barat',col:'#052040',wCol:'#0a4a80',
+  {id:'raja',name:'Raja Ampat',region:'Papua Barat',col:'#052040',wCol:'#0a4a80',skyCol:'#061830',
    spots:[
      {id:'wayag',name:'Wayag Island',x:.30,y:.40,fish:['kakap','kerapu','kupu'],desc:'Terumbu karang virgin'},
-     {id:'misool',name:'Misool',x:.62,y:.60,fish:['napoleon','kakap','kerapu'],desc:'Perairan dalam, ikan raksasa'},
-     {id:'dampier',name:'Selat Dampier',x:.50,y:.32,fish:['napoleon','kerapu','kupu'],desc:'Arus kencang, tantangan tinggi'},
+     {id:'misool',name:'Misool',x:.62,y:.60,fish:['napoleon','kakap','kerapu'],desc:'Deep water'},
+     {id:'dampier',name:'Selat Dampier',x:.50,y:.32,fish:['napoleon','kerapu','kupu'],desc:'Arus kencang'},
    ],
    npc:{name:'Mama Yulce',title:'PEDAGANG IKAN SORONG',emo:'👩',
-     intro:'Selamat datang di surga bawah laut Indonesia, ade! Di sini lebih dari 1.500 spesies ikan. Kalau bisa tangkap Napoleon, kamu juara!',
-     lore:'Raja Ampat punya keanekaragaman hayati laut tertinggi di dunia — 700+ spesies karang, 1.500+ spesies ikan. Airnya jernih sampai 30 meter ke bawah bisa dilihat.',
+     intro:'Selamat datang di surga bawah laut Indonesia, ade! Di sini 1.500+ spesies ikan. Kalau bisa tangkap Napoleon, kamu juara!',
+     lore:'Raja Ampat punya keanekaragaman hayati laut tertinggi di dunia — 700+ spesies karang, 1.500+ spesies ikan.',
      tip:'Napoleon Wrasse suka spot Misool pagi hari. Senar harus kuat, dia bisa 190kg!',
    },
    quests:['q_raja_1','q_raja_2','q_raja_3'],
-   mapX:.84,mapY:.57,
+   mapX:.85,mapY:.56,
   },
-  {id:'mhk',name:'Sungai Mahakam',region:'Kaltim',col:'#0a2a10',wCol:'#145a20',
+  {id:'mhk',name:'Sungai Mahakam',region:'Kaltim',col:'#0a2a10',wCol:'#145a20',skyCol:'#081a0a',
    spots:[
-     {id:'samarinda',name:'Samarinda',x:.35,y:.52,fish:['patin','baung','mas'],desc:'Dekat kota, aman'},
-     {id:'jempang',name:'Danau Jempang',x:.55,y:.40,fish:['patin','baung','pesut'],desc:'Habitat pesut langka'},
-     {id:'hulu',name:'Hulu Mahakam',x:.66,y:.33,fish:['arwana','baung','gabus'],desc:'Hutan lebat, ikan naga'},
+     {id:'samarinda',name:'Samarinda',x:.35,y:.52,fish:['patin','baung','mas'],desc:'Dekat kota'},
+     {id:'jempang',name:'Danau Jempang',x:.55,y:.40,fish:['patin','baung','pesut'],desc:'Habitat pesut'},
+     {id:'hulu',name:'Hulu Mahakam',x:.66,y:.33,fish:['arwana','baung','gabus'],desc:'Hutan lebat'},
    ],
    npc:{name:'Pak Dayak',title:'TETUA SUKU DAYAK BENUAQ',emo:'🧔',
-     intro:'Tabik! Sungai Mahakam adalah jiwa kami. Boleh mancing, tapi jaga alamnya. Kalau ketemu Pesut, lepaskan — itu titipan leluhur.',
-     lore:'Sungai Mahakam mengalir 920km di Kalimantan Timur. Pesut Mahakam hanya tersisa ~80 ekor di dunia — hanya ada di sini. Arwana Super Red bisa berharga ratusan juta!',
+     intro:'Tabik! Sungai Mahakam adalah jiwa kami. Boleh mancing, tapi jaga alamnya. Kalau ketemu Pesut, lepaskan!',
+     lore:'Sungai Mahakam mengalir 920km di Kalimantan Timur. Pesut Mahakam hanya tersisa ~80 ekor di dunia.',
      tip:'Arwana ada di Hulu dekat akar pohon tenggelam. Pagi buta adalah waktu terbaik.',
    },
    quests:['q_mhk_1','q_mhk_2','q_mhk_3'],
-   mapX:.65,mapY:.41,
+   mapX:.65,mapY:.40,
   },
-  {id:'jawa',name:'Laut Jawa',region:'Jakarta Utara',col:'#060d22',wCol:'#0d2060',
+  {id:'jawa',name:'Laut Jawa',region:'Jakarta Utara',col:'#060d22',wCol:'#0d2060',skyCol:'#040a18',
    spots:[
-     {id:'muara',name:'Muara Angke',x:.30,y:.46,fish:['tongkol','cumi','kakap'],desc:'Pasar ikan, banyak hasil'},
-     {id:'seribu',name:'Kepulauan Seribu',x:.54,y:.34,fish:['cumi','udang','kerapu'],desc:'Snorkeling + mancing'},
-     {id:'selat',name:'Selat Sunda',x:.65,y:.58,fish:['udang','tongkol','napoleon'],desc:'Arus kuat, hasil besar'},
+     {id:'muara',name:'Muara Angke',x:.30,y:.46,fish:['tongkol','cumi','kakap'],desc:'Pasar ikan'},
+     {id:'seribu',name:'Kepulauan Seribu',x:.54,y:.34,fish:['cumi','udang','kerapu'],desc:'Snorkeling'},
+     {id:'selat',name:'Selat Sunda',x:.65,y:.58,fish:['udang','tongkol','napoleon'],desc:'Arus kuat'},
    ],
    npc:{name:'Bang Juned',title:'JURAGAN NELAYAN MUARA',emo:'🧑',
-     intro:'Oi! Lo mau mancing di Laut Jawa? Ombak bisa gede, tapi kalau tau spot-nya, cuan gede banget. Gue udah 20 tahun di sini!',
-     lore:'Laut Jawa dulu daratan kering di zaman es. Kedalamannya cuma 40-60m. Jalur perdagangan rempah Nusantara berabad-abad melewati laut ini.',
+     intro:'Oi! Lo mau mancing di Laut Jawa? Ombak bisa gede, tapi kalau tau spot-nya, cuan gede banget!',
+     lore:'Laut Jawa dulu daratan kering di zaman es. Kedalamannya cuma 40-60m. Jalur perdagangan rempah Nusantara.',
      tip:'Udang Windu keluar malam hari di Kepulauan Seribu. Bawa lampu, dia suka cahaya!',
    },
    quests:['q_jawa_1','q_jawa_2','q_jawa_3'],
-   mapX:.42,mapY:.51,
+   mapX:.41,mapY:.50,
   },
-  {id:'matano',name:'Danau Matano',region:'Sulawesi Sel.',col:'#12052a',wCol:'#2a0a5a',
+  {id:'matano',name:'Danau Matano',region:'Sulawesi Sel.',col:'#12052a',wCol:'#2a0a5a',skyCol:'#0a0318',
    spots:[
-     {id:'sorowako',name:'Sorowako',x:.30,y:.50,fish:['opudi','butini','mas'],desc:'Desa nelayan, spot tenang'},
-     {id:'nuha',name:'Nuha',x:.56,y:.40,fish:['butini','sogili','opudi'],desc:'Perairan dalam misterius'},
-     {id:'timampu',name:'Timampu',x:.65,y:.60,fish:['sogili','butini','opudi'],desc:'Zona gelap, ikan kuno'},
+     {id:'sorowako',name:'Sorowako',x:.30,y:.50,fish:['opudi','butini','mas'],desc:'Desa nelayan'},
+     {id:'nuha',name:'Nuha',x:.56,y:.40,fish:['butini','sogili','opudi'],desc:'Perairan dalam'},
+     {id:'timampu',name:'Timampu',x:.65,y:.60,fish:['sogili','butini','opudi'],desc:'Zona misterius'},
    ],
    npc:{name:'Ibu Sarce',title:'PENJAGA DANAU MATANO',emo:'👵',
-     intro:'Selamat datang, nak. Danau ini terdalam di Asia Tenggara. Ada makhluk-makhluk kuno yang belum pernah dilihat orang. Hati-hati ya...',
-     lore:'Danau Matano dalamnya 590 meter — ke-8 terdalam di dunia. Airnya kaya nikel sehingga jernih luar biasa. Banyak spesies endemik tidak ada di tempat lain di bumi.',
+     intro:'Selamat datang, nak. Danau ini terdalam di Asia Tenggara. Ada makhluk kuno di sini. Hati-hati...',
+     lore:'Danau Matano dalamnya 590 meter — ke-8 terdalam di dunia. Airnya kaya nikel, sangat jernih.',
      tip:'Sogili Raksasa suka lubang batu di Timampu. Mancing malam dengan umpan udang hidup.',
    },
    quests:['q_mat_1','q_mat_2','q_mat_3'],
-   mapX:.73,mapY:.54,
+   mapX:.73,mapY:.53,
   },
 ];
 
 const QDB={
-  q_toba_1:{t:'Tangkapan Pertama',d:'Tangkap 3 Ikan Mujair untuk upacara adat Pak Tohir',fish:'mujair',need:3,rew:350},
-  q_toba_2:{t:'Dekke Sakral',d:'Temukan 1 Dekke Mas Toba yang sangat langka',fish:'dekke',need:1,rew:2500},
-  q_toba_3:{t:'Master Danau Toba',d:'Tangkap 5 Ikan Gabus — predator danau',fish:'gabus',need:5,rew:1800},
-  q_raja_1:{t:'Warna Karang',d:'Tangkap 3 Ikan Kupu-Kupu sebagai tanda karang sehat',fish:'kupu',need:3,rew:700},
-  q_raja_2:{t:'Stok Mama Yulce',d:'Bawa 4 Kakap Merah segar ke pasar Sorong',fish:'kakap',need:4,rew:1400},
-  q_raja_3:{t:'Raja Sejati',d:'Tangkap 1 Napoleon Wrasse — tantangan terbesar!',fish:'napoleon',need:1,rew:6000},
-  q_mhk_1:{t:'Lauk Kampung',d:'Bawa 5 Ikan Patin untuk warga di pinggir sungai',fish:'patin',need:5,rew:500},
-  q_mhk_2:{t:'Penjaga Sungai',d:'Temukan Pesut Mahakam dan LEPASKAN kembali',fish:'pesut',need:1,rew:1200},
-  q_mhk_3:{t:'Naga Mahakam',d:'Tangkap 1 Arwana Super Red yang legendaris',fish:'arwana',need:1,rew:9000},
+  q_toba_1:{t:'Tangkapan Pertama',d:'Tangkap 3 Ikan Mujair untuk upacara adat',fish:'mujair',need:3,rew:350},
+  q_toba_2:{t:'Dekke Sakral',d:'Temukan 1 Dekke Mas Toba yang langka',fish:'dekke',need:1,rew:2500},
+  q_toba_3:{t:'Master Danau Toba',d:'Tangkap 5 Ikan Gabus predator danau',fish:'gabus',need:5,rew:1800},
+  q_raja_1:{t:'Warna Karang',d:'Tangkap 3 Ikan Kupu-Kupu tanda karang sehat',fish:'kupu',need:3,rew:700},
+  q_raja_2:{t:'Stok Mama Yulce',d:'Bawa 4 Kakap Merah ke pasar Sorong',fish:'kakap',need:4,rew:1400},
+  q_raja_3:{t:'Raja Sejati',d:'Tangkap 1 Napoleon Wrasse legendaris',fish:'napoleon',need:1,rew:6000},
+  q_mhk_1:{t:'Lauk Kampung',d:'Bawa 5 Ikan Patin untuk warga sungai',fish:'patin',need:5,rew:500},
+  q_mhk_2:{t:'Penjaga Sungai',d:'Temukan Pesut Mahakam dan LEPASKAN',fish:'pesut',need:1,rew:1200},
+  q_mhk_3:{t:'Naga Mahakam',d:'Tangkap 1 Arwana Super Red legendaris',fish:'arwana',need:1,rew:9000},
   q_jawa_1:{t:'Pesanan Pasar',d:'Tangkap 6 Ikan Tongkol untuk Bang Juned',fish:'tongkol',need:6,rew:600},
-  q_jawa_2:{t:'Cumi Istimewa',d:'Tangkap 4 Cumi-Cumi untuk restoran seafood',fish:'cumi',need:4,rew:900},
-  q_jawa_3:{t:'Udang Premium',d:'Tangkap 3 Udang Windu ukuran jumbo',fish:'udang',need:3,rew:3000},
-  q_mat_1:{t:'Misteri Danau',d:'Tangkap 2 Ikan Butini — endemik langka',fish:'butini',need:2,rew:1200},
+  q_jawa_2:{t:'Cumi Istimewa',d:'Tangkap 4 Cumi-Cumi untuk restoran',fish:'cumi',need:4,rew:900},
+  q_jawa_3:{t:'Udang Premium',d:'Tangkap 3 Udang Windu jumbo',fish:'udang',need:3,rew:3000},
+  q_mat_1:{t:'Misteri Danau',d:'Tangkap 2 Ikan Butini endemik langka',fish:'butini',need:2,rew:1200},
   q_mat_2:{t:'Belut Kuno',d:'Temukan 1 Sogili Raksasa di kedalaman',fish:'sogili',need:1,rew:2200},
-  q_mat_3:{t:'Penjelajah Matano',d:'Tangkap 3 Ikan Opudi warna biru langka',fish:'opudi',need:3,rew:2800},
+  q_mat_3:{t:'Penjelajah Matano',d:'Tangkap 3 Ikan Opudi warna biru',fish:'opudi',need:3,rew:2800},
 };
 
-const ISLANDS=[
-  {p:[[.11,.27],[.21,.19],[.30,.21],[.34,.30],[.28,.40],[.18,.42],[.12,.36]],c:'#1a3a1a'},
-  {p:[[.27,.48],[.40,.43],[.52,.44],[.60,.47],[.53,.53],[.36,.55]],c:'#1a2e1a'},
-  {p:[[.52,.25],[.66,.19],[.78,.28],[.80,.44],[.68,.51],[.55,.46],[.52,.35]],c:'#1a3a1a'},
-  {p:[[.74,.28],[.82,.26],[.86,.37],[.81,.46],[.76,.50],[.72,.43],[.74,.35]],c:'#162e18'},
-  {p:[[.84,.36],[.96,.34],[.98,.46],[.94,.59],[.84,.59],[.79,.50],[.82,.40]],c:'#162a18'},
-  {p:[[.60,.50],[.64,.49],[.65,.53],[.61,.53]],c:'#1a3010'},
-  {p:[[.80,.50],[.83,.47],[.85,.52],[.82,.55]],c:'#1a3a18'},
-];
+// ═══════════════════════════════════
+// SAVE / LOAD
+// ═══════════════════════════════════
+function saveGame(){
+  const data={
+    coins:G.coins,total:G.total,col:G.col,rod:G.rod,
+    qProg:G.qProg,qDone:G.qDone,locI:G.locI
+  };
+  try{localStorage.setItem('nfa_save',JSON.stringify(data));}catch(e){}
+}
+function loadGame(){
+  try{
+    const raw=localStorage.getItem('nfa_save');
+    if(!raw) return;
+    const d=JSON.parse(raw);
+    G.coins=d.coins||0; G.total=d.total||0;
+    G.col=d.col||{}; G.rod=d.rod||0;
+    G.qProg=d.qProg||{}; G.qDone=d.qDone||[];
+    G.locI=d.locI||0;
+  }catch(e){}
+}
 
+// ═══════════════════════════════════
+// WEATHER SYSTEM
+// ═══════════════════════════════════
+const WEATHERS=[
+  {id:'sunny',icon:'☀️',label:'Cerah',biteMult:1.0,rainAlpha:0},
+  {id:'cloudy',icon:'⛅',label:'Mendung',biteMult:1.2,rainAlpha:0},
+  {id:'rain',icon:'🌧️',label:'Hujan',biteMult:1.5,rainAlpha:0.7},
+  {id:'storm',icon:'⛈️',label:'Badai',biteMult:0.6,rainAlpha:1.0},
+];
+let rainDrops=[];
+let curWeather=0;
+function randomWeather(){
+  const w=[0,0,0,1,1,2,3];
+  curWeather=w[Math.floor(Math.random()*w.length)];
+  document.getElementById('wHud').textContent=WEATHERS[curWeather].icon+' '+WEATHERS[curWeather].label;
+}
+function initRain(canvas){
+  rainDrops=[];
+  const w=canvas.width,h=canvas.height;
+  const cnt=WEATHERS[curWeather].id==='storm'?200:100;
+  for(let i=0;i<cnt;i++) rainDrops.push({x:Math.random()*w,y:Math.random()*h,spd:8+Math.random()*6,len:10+Math.random()*15});
+}
+function drawRain(canvas){
+  const alpha=WEATHERS[curWeather].rainAlpha;
+  if(alpha===0){canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);return;}
+  const rc=canvas.getContext('2d');
+  rc.clearRect(0,0,canvas.width,canvas.height);
+  rc.strokeStyle=`rgba(160,210,255,${alpha*0.6})`;
+  rc.lineWidth=1;
+  rainDrops.forEach(d=>{
+    rc.beginPath();rc.moveTo(d.x,d.y);rc.lineTo(d.x-2,d.y+d.len);rc.stroke();
+    d.y+=d.spd;d.x-=1.5;
+    if(d.y>canvas.height){d.y=-20;d.x=Math.random()*canvas.width;}
+  });
+}
+
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
 let G={
   coins:0,total:0,col:{},rod:0,locI:0,spotI:0,
   qProg:{},qDone:[],prevScr:'sMap',
@@ -351,60 +468,232 @@ let G={
   ci:null,ti:null,wt:null,mt:null,
 };
 
+loadGame();
+
+// ═══════════════════════════════════
+// SCREEN
+// ═══════════════════════════════════
 function S(id){document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on');}
 
+// ═══════════════════════════════════
+// MAP CANVAS — Beautiful Indonesia Map
+// ═══════════════════════════════════
 const mapC=document.getElementById('mapC');
 const mc=mapC.getContext('2d');
-let MW=0,MH=0;
+let MW=0,MH=0,mapT=0;
 
-function drawMap(){
+// Detailed island paths (normalized 0-1)
+const ISLANDS=[
+  // Sumatra — longer diagonal island NW to SE
+  {pts:[[.10,.24],[.13,.19],[.17,.16],[.22,.15],[.27,.17],[.31,.20],[.33,.25],[.32,.31],[.28,.36],[.23,.39],[.17,.38],[.12,.33],[.10,.28]],
+   col:'#1a3d1a',col2:'#2a5a2a',label:'Sumatra',lx:.20,ly:.27},
+  // Java — thin horizontal island
+  {pts:[[.27,.47],[.33,.44],[.40,.43],[.47,.44],[.53,.45],[.59,.47],[.57,.52],[.48,.53],[.36,.52],[.28,.51]],
+   col:'#1e3a18',col2:'#2d5225',label:'Jawa',lx:.43,ly:.48},
+  // Kalimantan — big roughly square island
+  {pts:[[.51,.24],[.57,.19],[.64,.18],[.71,.21],[.77,.26],[.79,.33],[.78,.41],[.73,.47],[.66,.50],[.57,.48],[.52,.42],[.50,.34]],
+   col:'#1a3d1a',col2:'#2a5a2a',label:'Kalimantan',lx:.64,ly:.33},
+  // Sulawesi — quirky K-shaped island
+  {pts:[[.74,.28],[.77,.25],[.82,.24],[.85,.28],[.84,.34],[.80,.38],[.78,.44],[.75,.48],[.72,.46],[.72,.40],[.74,.34]],
+   col:'#163218',col2:'#225228',label:'Sulawesi',lx:.78,ly:.35},
+  // Papua — large eastern island
+  {pts:[[.84,.35],[.88,.31],[.93,.30],[.97,.33],[.98,.40],[.96,.48],[.92,.55],[.86,.57],[.82,.53],[.80,.46],[.82,.40]],
+   col:'#162e14',col2:'#224820',label:'Papua',lx:.89,ly:.42},
+  // Bali — tiny
+  {pts:[[.60,.49],[.63,.48],[.65,.50],[.63,.52],[.60,.51]],
+   col:'#1e3a18',col2:'#2d5225',label:'Bali',lx:.62,ly:.50},
+  // Lombok
+  {pts:[[.65,.49],[.67,.48],[.69,.50],[.67,.52],[.65,.51]],
+   col:'#1a3d1a',col2:'#2a5a2a',label:'',lx:0,ly:0},
+  // Maluku (simplified)
+  {pts:[[.81,.47],[.83,.45],[.85,.47],[.84,.50],[.82,.50]],
+   col:'#162e14',col2:'#224820',label:'',lx:0,ly:0},
+  // Nusa Tenggara (simplified)
+  {pts:[[.69,.50],[.73,.49],[.76,.50],[.75,.52],[.70,.52]],
+   col:'#1a3d1a',col2:'#2a5a2a',label:'',lx:0,ly:0},
+];
+
+// Decorative elements for map
+function drawBeautifulMap(t){
   if(!MW||!MH) return;
-  const g=mc.createLinearGradient(0,0,0,MH);
-  g.addColorStop(0,'#050d18');g.addColorStop(1,'#082040');
-  mc.fillStyle=g;mc.fillRect(0,0,MW,MH);
-  mc.strokeStyle='rgba(20,50,90,0.6)';mc.lineWidth=0.5;
-  for(let x=0;x<MW;x+=MW*0.07){mc.beginPath();mc.moveTo(x,0);mc.lineTo(x,MH);mc.stroke()}
-  for(let y=0;y<MH;y+=MH*0.09){mc.beginPath();mc.moveTo(0,y);mc.lineTo(MW,y);mc.stroke()}
+  mapT=t;
+
+  // Deep ocean background with gradient
+  const oceanGrad=mc.createLinearGradient(0,0,MW,MH);
+  oceanGrad.addColorStop(0,'#020a14');
+  oceanGrad.addColorStop(0.4,'#041525');
+  oceanGrad.addColorStop(1,'#030d1e');
+  mc.fillStyle=oceanGrad; mc.fillRect(0,0,MW,MH);
+
+  // Ocean depth lines (topographic feel)
+  for(let i=0;i<6;i++){
+    const alpha=0.04+i*0.015;
+    mc.strokeStyle=`rgba(20,80,160,${alpha})`;
+    mc.lineWidth=1;
+    mc.beginPath();
+    for(let x=0;x<=MW;x+=8){
+      const y=MH*(0.1+i*0.15)+Math.sin(x*0.02+t*0.3+i)*6;
+      x===0?mc.moveTo(x,y):mc.lineTo(x,y);
+    }
+    mc.stroke();
+  }
+
+  // Grid lines (nautical chart style)
+  mc.strokeStyle='rgba(20,60,120,0.25)'; mc.lineWidth=0.5;
+  for(let x=0;x<MW;x+=MW*0.08){mc.beginPath();mc.moveTo(x,0);mc.lineTo(x,MH);mc.stroke();}
+  for(let y=0;y<MH;y+=MH*0.1){mc.beginPath();mc.moveTo(0,y);mc.lineTo(MW,y);mc.stroke();}
+
+  // Compass rose (bottom left)
+  drawCompass(60,MH-60,28,t);
+
+  // Islands with elevation shading
   ISLANDS.forEach(isl=>{
-    mc.fillStyle=isl.c;mc.strokeStyle='rgba(40,120,60,0.35)';mc.lineWidth=1;
-    mc.beginPath();isl.p.forEach(([x,y],i)=>i?mc.lineTo(x*MW,y*MH):mc.moveTo(x*MW,y*MH));
-    mc.closePath();mc.fill();mc.stroke();
+    const pts=isl.pts;
+    // Shadow / depth
+    mc.save();
+    mc.translate(3,4);
+    mc.fillStyle='rgba(0,0,0,0.4)';
+    mc.beginPath();
+    pts.forEach(([x,y],i)=>i?mc.lineTo(x*MW,y*MH):mc.moveTo(x*MW,y*MH));
+    mc.closePath(); mc.fill();
+    mc.restore();
+
+    // Island fill gradient (elevated feel)
+    const cx=pts.reduce((s,[x])=>s+x,0)/pts.length*MW;
+    const cy=pts.reduce((s,[,y])=>s+y,0)/pts.length*MH;
+    const islandGrad=mc.createRadialGradient(cx,cy-5,2,cx,cy,MW*0.08);
+    islandGrad.addColorStop(0,isl.col2);
+    islandGrad.addColorStop(1,isl.col);
+    mc.fillStyle=islandGrad;
+    mc.beginPath();
+    pts.forEach(([x,y],i)=>i?mc.lineTo(x*MW,y*MH):mc.moveTo(x*MW,y*MH));
+    mc.closePath(); mc.fill();
+
+    // Coastline
+    mc.strokeStyle='rgba(80,180,80,0.5)'; mc.lineWidth=1;
+    mc.beginPath();
+    pts.forEach(([x,y],i)=>i?mc.lineTo(x*MW,y*MH):mc.moveTo(x*MW,y*MH));
+    mc.closePath(); mc.stroke();
+
+    // Island highlight (top edge glow)
+    mc.strokeStyle='rgba(100,200,100,0.2)'; mc.lineWidth=2;
+    mc.beginPath();
+    pts.slice(0,Math.floor(pts.length*0.4)).forEach(([x,y],i)=>i?mc.lineTo(x*MW,y*MH):mc.moveTo(x*MW,y*MH));
+    mc.stroke();
+
+    // Label
+    if(isl.label){
+      mc.fillStyle='rgba(120,200,120,0.55)';
+      mc.font=`${Math.max(8,MW*0.014)}px 'Courier New'`;
+      mc.textAlign='center';
+      mc.fillText(isl.label,isl.lx*MW,isl.ly*MH);
+    }
   });
+
+  // Ocean shimmer dots
+  for(let i=0;i<15;i++){
+    const sx=(i*137+60)%MW, sy=(i*89+30)%(MH*0.9);
+    const alpha=0.06+0.05*Math.sin(t*1.2+i*0.8);
+    mc.fillStyle=`rgba(100,180,255,${alpha})`;
+    mc.beginPath(); mc.arc(sx,sy,1.5,0,Math.PI*2); mc.fill();
+  }
+
+  // Location markers
   LOCS.forEach((l,i)=>{
-    const x=l.mapX*MW,y=l.mapY*MH,sel=i===G.locI;
-    if(sel){mc.strokeStyle='rgba(245,200,66,0.3)';mc.lineWidth=1;mc.beginPath();mc.arc(x,y,22,0,Math.PI*2);mc.stroke();}
+    const x=l.mapX*MW, y=l.mapY*MH, sel=i===G.locI;
+    // Animated pulse rings for selected
+    if(sel){
+      for(let r=0;r<3;r++){
+        const phase=(t*1.5+r*0.5)%2;
+        const alpha=Math.max(0,0.6-phase*0.3);
+        mc.strokeStyle=`rgba(245,200,66,${alpha})`;
+        mc.lineWidth=1;
+        mc.beginPath(); mc.arc(x,y,14+phase*18,0,Math.PI*2); mc.stroke();
+      }
+    }
+    // Pin glow
+    mc.shadowColor=sel?'#f5c842':'#4a9eff';
+    mc.shadowBlur=sel?12:6;
     mc.fillStyle=sel?'#f5c842':'#4a9eff';
-    mc.beginPath();mc.arc(x,y,sel?7:4.5,0,Math.PI*2);mc.fill();
-    mc.fillStyle=sel?'#f5c842':'rgba(220,232,245,0.85)';
-    mc.font=`${sel?700:400} ${sel?11:9}px 'Courier New'`;mc.textAlign='center';
-    mc.fillText(l.name,x,y-(sel?16:13));
-    if(sel){mc.font="8px 'Courier New'";mc.fillStyle='rgba(245,200,66,0.7)';mc.fillText(l.region,x,y-6);}
+    mc.beginPath(); mc.arc(x,y,sel?7:5,0,Math.PI*2); mc.fill();
+    mc.shadowBlur=0;
+    // Pin inner dot
+    mc.fillStyle=sel?'#1a1000':'#001a3a';
+    mc.beginPath(); mc.arc(x,y,sel?3:2,0,Math.PI*2); mc.fill();
+    // Label
+    mc.textAlign='center';
+    mc.fillStyle=sel?'#f5c842':'rgba(180,210,245,0.8)';
+    mc.font=`${sel?700:400} ${sel?11:9}px 'Courier New'`;
+    mc.fillText(l.name,x,y-(sel?17:14));
+    if(sel){
+      mc.fillStyle='rgba(245,200,66,0.6)';
+      mc.font=`8px 'Courier New'`;
+      mc.fillText(l.region,x,y-7);
+    }
   });
+
+  // Title watermark
+  mc.fillStyle='rgba(245,200,66,0.08)';
+  mc.font=`bold ${MW*0.06}px 'Courier New'`;
+  mc.textAlign='center';
+  mc.fillText('NUSANTARA',MW*0.5,MH*0.5);
+
   mapC.onclick=e=>{
     const r=mapC.getBoundingClientRect();
-    const cx=(e.clientX-r.left)/r.width,cy=(e.clientY-r.top)/r.height;
-    LOCS.forEach((l,i)=>{if(Math.hypot(cx-l.mapX,cy-l.mapY)<0.06){G.locI=i;G.spotI=0;updMapInfo();drawMap();}});
+    const cx=(e.clientX-r.left)/r.width, cy=(e.clientY-r.top)/r.height;
+    LOCS.forEach((l,i)=>{
+      if(Math.hypot(cx-l.mapX,cy-l.mapY)<0.07){G.locI=i;G.spotI=0;updMapInfo();saveGame();}
+    });
   };
 }
-function updMapInfo(){
-  const l=LOCS[G.locI];
-  document.getElementById('miName').textContent=l.name.toUpperCase();
-  document.getElementById('miSub').textContent=l.region+' · '+l.spots.length+' Spot';
-  document.getElementById('miFish').textContent=l.spots.flatMap(s=>s.fish).filter((v,i,a)=>a.indexOf(v)===i).slice(0,4).map(id=>FDB[id]?.n.split(' ').slice(-1)[0]).join(' · ');
+
+function drawCompass(cx,cy,r,t){
+  // Rose
+  mc.strokeStyle='rgba(245,200,66,0.4)'; mc.lineWidth=1;
+  mc.beginPath(); mc.arc(cx,cy,r,0,Math.PI*2); mc.stroke();
+  // N S E W
+  const dirs=[['N',0],['E',Math.PI/2],['S',Math.PI],['W',Math.PI*1.5]];
+  dirs.forEach(([l,a])=>{
+    const dx=Math.sin(a)*(r-4), dy=-Math.cos(a)*(r-4);
+    mc.fillStyle=l==='N'?'rgba(245,200,66,0.8)':'rgba(100,160,220,0.5)';
+    mc.font=`bold 8px 'Courier New'`;
+    mc.textAlign='center';
+    mc.fillText(l,cx+dx,cy+dy+3);
+  });
+  // Needle
+  mc.strokeStyle='rgba(245,200,66,0.6)'; mc.lineWidth=1.5;
+  mc.beginPath(); mc.moveTo(cx,cy-r+8); mc.lineTo(cx,cy+r-8); mc.stroke();
+  mc.beginPath(); mc.moveTo(cx-r+8,cy); mc.lineTo(cx+r-8,cy); mc.stroke();
 }
 
+function updMapInfo(){
+  const l=LOCS[G.locI];
+  document.getElementById('lpName').textContent=l.name.toUpperCase();
+  document.getElementById('lpRegion').textContent=l.region;
+  document.getElementById('lpFish').textContent=l.spots.flatMap(s=>s.fish).filter((v,i,a)=>a.indexOf(v)===i).slice(0,4).map(id=>FDB[id]?.n.split(' ').slice(-1)[0]).join(' · ');
+  document.getElementById('lpSpots').textContent=l.spots.length+' SPOT TERSEDIA';
+}
+
+// ═══════════════════════════════════
+// FISH SCENE
+// ═══════════════════════════════════
 const fishC=document.getElementById('fishC');
 const fc=fishC.getContext('2d');
+const rainC=document.getElementById('rainC');
 let FW=0,FH=0;
 
 function goFish(){
-  const l=LOCS[G.locI];const sp=l.spots[G.spotI];
+  const l=LOCS[G.locI]; const sp=l.spots[G.spotI];
   document.getElementById('fhLoc').textContent=l.name.toUpperCase();
   document.getElementById('fhSpot').textContent=sp.name+' — '+sp.desc;
-  document.getElementById('fhRight').textContent='ROD: '+['BAMBU','FIBER','CARBON','TITAN'][G.rod];
-  resetF();initScene();S('sFish');
+  document.getElementById('fhRight').textContent=RODS[G.rod].name.toUpperCase();
+  randomWeather();
+  rainC.width=FW; rainC.height=FH;
+  initRain(rainC);
+  resetF(); initScene(); S('sFish');
   msg('Siap mancing!','Tahan LEMPAR lalu lepaskan',3000);
 }
+
 function initScene(){
   G.waves=[];
   for(let i=0;i<7;i++) G.waves.push({x:Math.random()*FW,y:FH*.34+Math.random()*FH*.12,r:12+Math.random()*35,a:.05+Math.random()*.08,spd:.3+Math.random()*.5});
@@ -417,37 +706,64 @@ function initScene(){
     G.fish3.push({x:Math.random()*FW,y:FH*.5+Math.random()*FH*.38,vx:(Math.random()-.5)*1.6,vy:(Math.random()-.5)*.3,sz:5+Math.random()*16,a:.1+Math.random()*.22,ph:Math.random()*Math.PI*2,c:clr});
   }
 }
+
 function drawFishScene(t){
   if(!FW||!FH) return;
   const l=LOCS[G.locI];
+  const wth=WEATHERS[curWeather];
+
+  // Sky — varies by weather
+  const skyAlpha=wth.id==='storm'?0.7:wth.id==='rain'?0.5:wth.id==='cloudy'?0.3:0;
   const sg=fc.createLinearGradient(0,0,0,FH*.38);
-  sg.addColorStop(0,l.col);sg.addColorStop(1,l.wCol);
-  fc.fillStyle=sg;fc.fillRect(0,0,FW,FH*.38);
-  for(let i=0;i<25;i++){
-    const sx=(i*89+11)%FW,sy=(i*47+5)%(FH*.3);
-    fc.fillStyle=`rgba(255,255,255,${.05+.08*Math.sin(t*1.5+i)})`;
-    fc.beginPath();fc.arc(sx,sy,.8,0,Math.PI*2);fc.fill();
+  sg.addColorStop(0,l.skyCol||l.col); sg.addColorStop(1,l.wCol);
+  fc.fillStyle=sg; fc.fillRect(0,0,FW,FH*.38);
+
+  // Storm cloud overlay
+  if(skyAlpha>0){
+    const cloudGrad=fc.createLinearGradient(0,0,0,FH*.38);
+    cloudGrad.addColorStop(0,`rgba(20,20,30,${skyAlpha})`);
+    cloudGrad.addColorStop(1,'rgba(0,0,0,0)');
+    fc.fillStyle=cloudGrad; fc.fillRect(0,0,FW,FH*.38);
   }
-  fc.fillStyle='rgba(0,0,0,0.3)';
+
+  // Stars (only sunny/cloudy)
+  if(curWeather<2){
+    for(let i=0;i<20;i++){
+      const sx=(i*89+11)%FW,sy=(i*47+5)%(FH*.28);
+      fc.fillStyle=`rgba(255,255,255,${.05+.06*Math.sin(t*1.5+i)})`;
+      fc.beginPath();fc.arc(sx,sy,.8,0,Math.PI*2);fc.fill();
+    }
+  }
+
+  // Distant mountains
+  fc.fillStyle='rgba(0,0,0,0.35)';
   fc.beginPath();fc.moveTo(0,FH*.36);
   for(let x=0;x<=FW;x+=15) fc.lineTo(x,FH*.36-8-Math.sin(x*.04)*6-Math.sin(x*.015+2)*10);
   fc.lineTo(FW,FH*.38);fc.lineTo(0,FH*.38);fc.closePath();fc.fill();
+
+  // Water
   const wg=fc.createLinearGradient(0,FH*.35,0,FH);
   wg.addColorStop(0,l.wCol);wg.addColorStop(.3,'rgba(5,20,50,0.97)');wg.addColorStop(1,'#010810');
   fc.fillStyle=wg;
   fc.beginPath();fc.moveTo(0,FH*.35);
   for(let x=0;x<=FW;x+=7) fc.lineTo(x,FH*.35+Math.sin(x*.03+t*.8)*6);
   fc.lineTo(FW,FH);fc.lineTo(0,FH);fc.closePath();fc.fill();
+
+  // Water shimmer
   fc.strokeStyle='rgba(80,160,255,.06)';fc.lineWidth=1;
   for(let i=0;i<5;i++){
     const wy=FH*.43+i*FH*.1+Math.sin(t*.5+i)*7;
     fc.beginPath();for(let x=0;x<FW;x+=5) fc.lineTo(x,wy+Math.sin(x*.04+t+i*1.3)*3);fc.stroke();
   }
+
+  // Waves
   G.waves.forEach(w=>{
-    w.x-=w.spd;if(w.x<-60) w.x=FW+40;
+    w.x-=w.spd*(wth.id==='storm'?2:1);if(w.x<-60) w.x=FW+40;
     fc.strokeStyle=`rgba(255,255,255,${w.a})`;fc.lineWidth=1.5;
     fc.beginPath();fc.arc(w.x,w.y,w.r,Math.PI+.3,Math.PI*2-.3);fc.stroke();
   });
+
+  // Underwater fish
   G.fish3.forEach(f=>{
     f.x+=f.vx;f.y+=f.vy;f.ph+=.04;
     if(f.x<-50) f.x=FW+40;if(f.x>FW+60) f.x=-40;
@@ -459,6 +775,8 @@ function drawFishScene(t){
     fc.beginPath();fc.moveTo(-s*.6,0);fc.lineTo(-s*1.2,s*.5);fc.lineTo(-s*1.2,-s*.5);fc.closePath();fc.fill();
     fc.globalAlpha=1;fc.restore();
   });
+
+  // Rod
   const rx=FW*.8,ry=FH*.7;
   fc.strokeStyle='#6b3a0f';fc.lineWidth=6;fc.lineCap='round';
   fc.beginPath();fc.moveTo(rx,FH*.97);fc.lineTo(rx-30,ry);fc.stroke();
@@ -466,6 +784,8 @@ function drawFishScene(t){
   fc.beginPath();fc.moveTo(rx-30,ry);fc.lineTo(rx-50,ry-50);fc.stroke();
   fc.fillStyle='#334155';fc.beginPath();fc.arc(rx-10,FH*.88,8,0,Math.PI*2);fc.fill();
   fc.fillStyle='#64748b';fc.beginPath();fc.arc(rx-10,FH*.88,4,0,Math.PI*2);fc.fill();
+
+  // Line & bobber
   if(G.lineOn){
     const bx=G.bX,by=G.bY;
     const tx2=rx-50,ty2=ry-50;
@@ -482,6 +802,8 @@ function drawFishScene(t){
       fc.strokeStyle=`rgba(100,200,255,${.5-ri*.4})`;fc.lineWidth=1;fc.beginPath();fc.arc(bxs,by+2,7+ri*22,0,Math.PI*2);fc.stroke();
     }
   }
+
+  // Particles
   G.parts=G.parts.filter(p=>{
     p.x+=p.vx;p.y+=p.vy;p.vy+=.12;p.l-=.025;
     fc.globalAlpha=p.l;fc.fillStyle=p.c;fc.beginPath();fc.arc(p.x,p.y,p.r,0,Math.PI*2);fc.fill();fc.globalAlpha=1;
@@ -490,20 +812,27 @@ function drawFishScene(t){
   if(G.biteFlash>0){
     G.biteFlash-=.04;fc.strokeStyle=`rgba(245,200,66,${G.biteFlash})`;fc.lineWidth=2.5;fc.beginPath();fc.arc(G.bX,G.bY,32*(1-G.biteFlash),0,Math.PI*2);fc.stroke();
   }
+
+  // Rain overlay
+  drawRain(rainC);
 }
 
+// ═══════════════════════════════════
+// MINIMAP
+// ═══════════════════════════════════
 const mmC=document.getElementById('mmC');
 const mmc=mmC.getContext('2d');
 function drawMM(){
-  const mw=88,mh=72;mmc.clearRect(0,0,mw,mh);
-  mmc.fillStyle='rgba(0,0,0,0.8)';mmc.fillRect(0,0,mw,mh);
+  const mw=88,mh=72; mmc.clearRect(0,0,mw,mh);
+  mmc.fillStyle='rgba(0,0,0,0.8)'; mmc.fillRect(0,0,mw,mh);
   const l=LOCS[G.locI];
-  mmc.fillStyle=l.wCol+'44';mmc.fillRect(0,mh*.4,mw,mh*.6);
-  mmc.strokeStyle='rgba(40,180,80,.5)';mmc.lineWidth=1.5;mmc.beginPath();
-  for(let x=0;x<mw;x+=3) mmc.lineTo(x,mh*.38+Math.sin(x*.3)*2.5);mmc.stroke();
+  mmc.fillStyle=l.wCol+'44'; mmc.fillRect(0,mh*.4,mw,mh*.6);
+  mmc.strokeStyle='rgba(40,180,80,.5)'; mmc.lineWidth=1.5; mmc.beginPath();
+  for(let x=0;x<mw;x+=3) mmc.lineTo(x,mh*.38+Math.sin(x*.3)*2.5); mmc.stroke();
   l.spots.forEach((sp,i)=>{
     const x=sp.x*mw,y=sp.y*mh,act=i===G.spotI;
-    mmc.fillStyle=act?'#f5c842':'rgba(74,158,255,.65)';mmc.beginPath();mmc.arc(x,y,act?5:3,0,Math.PI*2);mmc.fill();
+    mmc.fillStyle=act?'#f5c842':'rgba(74,158,255,.65)';
+    mmc.beginPath();mmc.arc(x,y,act?5:3,0,Math.PI*2);mmc.fill();
     if(act){
       mmc.strokeStyle='rgba(245,200,66,.45)';mmc.lineWidth=1;mmc.beginPath();mmc.arc(x,y,9,0,Math.PI*2);mmc.stroke();
       mmc.fillStyle='#f5c842';mmc.font="6px 'Courier New'";mmc.textAlign='center';mmc.fillText(sp.name.substr(0,10),x,y-12);
@@ -514,6 +843,9 @@ function drawMM(){
   mmc.strokeStyle='rgba(255,255,255,.15)';mmc.lineWidth=.8;mmc.strokeRect(.5,.5,mw-1,mh-1);
 }
 
+// ═══════════════════════════════════
+// CAST MECHANICS
+// ═══════════════════════════════════
 function startCast(){
   if(G.gs!=='idle') return;
   G.gs='casting';G.cPow=0;G.cDir=1;
@@ -526,20 +858,22 @@ function startCast(){
 }
 function relCast(){
   if(G.gs!=='casting') return;
-  clearInterval(G.ci);const pw=G.cPow;
-  show('bCast',false);document.getElementById('bCastBtn').style.display='none';
-  const tx=FW*.15+pw*FW*.52,ty=FH*.36+Math.sin(tx*.03)*6;
-  G.bX=FW*.8-50;G.bY=FH*.7-50;G.lineOn=true;
-  const sx=G.bX,sy=G.bY;let prog=0;
+  clearInterval(G.ci); const pw=G.cPow;
+  show('bCast',false); document.getElementById('bCastBtn').style.display='none';
+  const tx=FW*.15+pw*FW*.52, ty=FH*.36+Math.sin(tx*.03)*6;
+  G.bX=FW*.8-50; G.bY=FH*.7-50; G.lineOn=true;
+  const sx=G.bX,sy=G.bY; let prog=0;
   const ani=setInterval(()=>{
     prog+=.07;G.bX=sx+(tx-sx)*prog;G.bY=sy+(ty-sy)*prog-Math.sin(prog*Math.PI)*65;
     if(prog>=1){
       clearInterval(ani);G.bX=tx;G.bY=ty;G.gs='waiting';
       spawnP(G.bX,G.bY,'water');msg('Menunggu gigitan...','');
-      const rod=[1,1.6,2.5,4][G.rod];
+      const wth=WEATHERS[curWeather];
+      const rod=RODS[G.rod].power;
+      const baseWait=1800+Math.random()*5500/rod;
       G.wt=setTimeout(()=>{
         if(G.gs!=='waiting') return;
-        G.gs='biting';G.biteFlash=1;
+        G.gs='biting'; G.biteFlash=1;
         const sp=LOCS[G.locI].spots[G.spotI];
         const fid=sp.fish[Math.floor(Math.random()*sp.fish.length)];
         G.curF={...FDB[fid],_id:fid};
@@ -548,15 +882,15 @@ function relCast(){
         document.getElementById('bReelBtn').style.display='block';
         G.fDist=100;G.tens=35;
         G.mt=setTimeout(()=>{if(G.gs==='biting'){msg('Ikan kabur!','',2000);resetF();}},7500);
-      },1800+Math.random()*5500/rod);
+      },baseWait/wth.biteMult);
     }
   },28);
 }
 function tapReel(){
   if(G.gs!=='biting'&&G.gs!=='reeling') return;
-  G.gs='reeling';clearTimeout(G.mt);
-  const spd=[1,1.6,2.5,4][G.rod];
-  G.fDist=Math.max(0,G.fDist-9*spd);G.tens=Math.min(100,G.tens+15);
+  G.gs='reeling'; clearTimeout(G.mt);
+  const spd=RODS[G.rod].speed;
+  G.fDist=Math.max(0,G.fDist-9*spd); G.tens=Math.min(100,G.tens+15);
   if(!G.ti){
     G.ti=setInterval(()=>{
       if(G.gs!=='reeling'){clearInterval(G.ti);G.ti=null;return;}
@@ -566,7 +900,7 @@ function tapReel(){
       updBars();
     },180);
   }
-  updBars();if(G.fDist<=0) doCatch();
+  updBars(); if(G.fDist<=0) doCatch();
 }
 function updBars(){
   document.getElementById('bReelF').style.width=(100-G.fDist)+'%';
@@ -576,7 +910,7 @@ function updBars(){
 }
 function doCatch(){
   clearInterval(G.ti);G.ti=null;
-  const fish=G.curF;G.gs='caught';
+  const fish=G.curF; G.gs='caught';
   const isR=fish.spec==='release';
   const coins=isR?0:Math.floor(fish.min+Math.random()*(fish.max-fish.min));
   if(!isR){G.coins+=coins;G.total++;G.col[fish._id]=(G.col[fish._id]||0)+1;checkQ(fish._id);}
@@ -589,7 +923,7 @@ function doCatch(){
   document.getElementById('ccCoins').textContent=isR?'DILEPAS KEMBALI':'+'+coins.toLocaleString()+' KOIN';
   document.getElementById('ccDesc').textContent=fish.d;
   document.getElementById('catchPop').classList.add('on');
-  updHUD();
+  saveGame(); updHUD();
 }
 function closeCatch(){document.getElementById('catchPop').classList.remove('on');resetF();}
 function resetF(){
@@ -614,6 +948,9 @@ function msg(t,s='',dur=0){
   el.classList.add('show');clearTimeout(msgTO);if(dur>0) msgTO=setTimeout(()=>el.classList.remove('show'),dur);
 }
 
+// ═══════════════════════════════════
+// NPC
+// ═══════════════════════════════════
 function goNPC(from){
   G.prevScr=from==='fish'?'sFish':'sMap';
   document.getElementById('npcBackBtn').onclick=()=>S(G.prevScr);
@@ -626,12 +963,12 @@ function goNPC(from){
   nc.width=nc.offsetWidth||400;nc.height=nc.offsetHeight||180;
   const ng=nc.getContext('2d');
   const nbg=ng.createLinearGradient(0,0,0,nc.height);
-  nbg.addColorStop(0,l.col);nbg.addColorStop(1,'#000');
+  nbg.addColorStop(0,l.skyCol||l.col);nbg.addColorStop(1,'#000');
   ng.fillStyle=nbg;ng.fillRect(0,0,nc.width,nc.height);
   for(let i=0;i<30;i++){ng.fillStyle=`rgba(255,255,255,${Math.random()*.1})`;ng.beginPath();ng.arc(Math.random()*nc.width,Math.random()*nc.height*.6,.8,0,Math.PI*2);ng.fill();}
   dialog(npc.intro,[
     {t:'Lihat Quest',cl:'q',fn:()=>showQNPC()},
-    {t:'Info Spot Mancing',fn:()=>showSpotNPC()},
+    {t:'Info Spot',fn:()=>showSpotNPC()},
     {t:'Cerita '+l.name,fn:()=>showLoreNPC()},
     {t:'Tips Mancing',fn:()=>showTipsNPC()},
     {t:'Sampai nanti',fn:()=>S(G.prevScr)},
@@ -656,7 +993,7 @@ function showQDetail(qid){
   if(dn) txt+='\n\n✓ Quest selesai! Klaim reward-mu.';
   const chs=[];
   if(!dn) chs.push({t:'Terima Quest',cl:'ok',fn:()=>{toast('Quest: '+q.t);showQNPC();}});
-  if(dn) chs.push({t:'Klaim '+q.rew+' Koin',cl:'ok',fn:()=>{G.coins+=q.rew;updHUD();toast('Reward: +'+q.rew+' koin!');G.qDone=G.qDone.filter(x=>x!==qid);showQNPC();}});
+  if(dn) chs.push({t:'Klaim '+q.rew+' Koin',cl:'ok',fn:()=>{G.coins+=q.rew;saveGame();updHUD();toast('Reward: +'+q.rew+' koin!');G.qDone=G.qDone.filter(x=>x!==qid);showQNPC();}});
   chs.push({t:'Kembali',fn:()=>showQNPC()});
   dialog(txt,chs);
 }
@@ -664,12 +1001,15 @@ function showSpotNPC(){
   const l=LOCS[G.locI];const npc=l.npc;
   dialog(`${npc.name}: "Di ${l.name} ada ${l.spots.length} spot bagus:"`,
     l.spots.map((sp,i)=>{const fs=sp.fish.slice(0,2).map(f=>FDB[f]?.n.split(' ').pop()).join(', ');return{t:`${sp.name} — ${fs}`,fn:()=>dialog(`${npc.name}: "${sp.name}: ${sp.desc}. Ada ${sp.fish.map(f=>FDB[f]?.n).join(', ')} di sini."`,
-      [{t:'Pergi ke spot ini',cl:'ok',fn:()=>{G.spotI=i;goFish();}},{t:'Kembali',fn:()=>showSpotNPC()}])};})
+      [{t:'Pergi ke sini',cl:'ok',fn:()=>{G.spotI=i;goFish();}},{t:'Kembali',fn:()=>showSpotNPC()}])};})
     .concat([{t:'Kembali',fn:()=>goNPC('npc')}]));
 }
-function showLoreNPC(){const l=LOCS[G.locI];const npc=l.npc;document.getElementById('dialogText').textContent=`${npc.name}: "${npc.lore}"`;const cc=document.getElementById('choices');cc.innerHTML='';const b=document.createElement('button');b.className='choice ok';b.textContent='► Wah, menarik!';b.onclick=()=>goNPC('npc');cc.appendChild(b);}
+function showLoreNPC(){const l=LOCS[G.locI];const npc=l.npc;document.getElementById('dialogText').textContent=`${npc.name}: "${npc.lore}"`;const cc=document.getElementById('choices');cc.innerHTML='';const b=document.createElement('button');b.className='choice ok';b.textContent='► Menarik!';b.onclick=()=>goNPC('npc');cc.appendChild(b);}
 function showTipsNPC(){const l=LOCS[G.locI];const npc=l.npc;document.getElementById('dialogText').textContent=`${npc.name}: "${npc.tip}"`;const cc=document.getElementById('choices');cc.innerHTML='';const b=document.createElement('button');b.className='choice ok';b.textContent='► Terima kasih!';b.onclick=()=>goNPC('npc');cc.appendChild(b);}
 
+// ═══════════════════════════════════
+// QUEST
+// ═══════════════════════════════════
 function checkQ(fishId){
   const l=LOCS[G.locI];
   l.quests.forEach(qid=>{
@@ -681,6 +1021,7 @@ function checkQ(fishId){
       else toast('Quest: '+q.t+' '+G.qProg[qid]+'/'+q.need);
     }
   });
+  saveGame();
 }
 function renderQuests(){
   const qb=document.getElementById('qBody');qb.innerHTML='';
@@ -697,19 +1038,75 @@ function renderQuests(){
   });
 }
 
+// ═══════════════════════════════════
+// SHOP
+// ═══════════════════════════════════
+function renderShop(){
+  const sb=document.getElementById('shopBody');sb.innerHTML='';
+  const coinDiv=document.createElement('div');coinDiv.className='shop-coins';
+  coinDiv.innerHTML=`Koin kamu: <b>${G.coins.toLocaleString()}</b>`;
+  sb.appendChild(coinDiv);
+  RODS.forEach((rod,i)=>{
+    const owned=i<=G.rod||i===0;
+    const equipped=i===G.rod;
+    const canBuy=!owned&&G.coins>=rod.price;
+    const card=document.createElement('div');
+    card.className='rod-card'+(equipped?' equipped':owned?' owned':'');
+    card.innerHTML=`
+      <div class="rod-top">
+        <span class="rod-name">${rod.icon} ${rod.name}</span>
+        <span class="rod-badge ${equipped?'rb-equip':owned?'rb-owned':'rb-lock'}">${equipped?'EQUIPPED':owned?'OWNED':'LOCKED'}</span>
+      </div>
+      <div class="rod-stats">
+        <span>PWR <span>${rod.power}x</span></span>
+        <span>SPD <span>${rod.speed}x</span></span>
+        <span>HARGA <span>${rod.price===0?'GRATIS':rod.price.toLocaleString()+' koin'}</span></span>
+      </div>
+      <div class="rod-desc">${rod.desc}</div>
+      <button class="rod-btn ${equipped?'':owned?'equip':'buy'}" 
+        onclick="shopAction(${i})"
+        ${equipped?'disabled':''}>
+        ${equipped?'DIGUNAKAN':owned?'► PAKAI':'► BELI '+rod.price.toLocaleString()+' KOIN'}
+      </button>`;
+    sb.appendChild(card);
+  });
+}
+function shopAction(i){
+  const rod=RODS[i];
+  const owned=i<=G.rod||i===0;
+  if(!owned){
+    if(G.coins<rod.price){toast('Koin tidak cukup!');return;}
+    G.coins-=rod.price;
+  }
+  G.rod=i;
+  saveGame();updHUD();
+  toast('Rod '+rod.name+' dipasang!');
+  renderShop();
+}
+
+// ═══════════════════════════════════
+// HUD & UTILS
+// ═══════════════════════════════════
 function updHUD(){
   ['mCoin','fCoin'].forEach(id=>document.getElementById(id).textContent=G.coins.toLocaleString());
   ['mCatch','fCatch'].forEach(id=>document.getElementById(id).textContent=G.total);
 }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(()=>t.style.opacity='0',2600);}
 
+// ═══════════════════════════════════
+// RESIZE
+// ═══════════════════════════════════
 function resize(){
-  MW=mapC.width=mapC.offsetWidth;MH=mapC.height=mapC.offsetHeight;
-  FW=fishC.width=fishC.offsetWidth;FH=fishC.height=fishC.offsetHeight;
-  drawMap();updMapInfo();
+  MW=mapC.width=mapC.offsetWidth; MH=mapC.height=mapC.offsetHeight;
+  FW=fishC.width=fishC.offsetWidth; FH=fishC.height=fishC.offsetHeight;
+  rainC.width=FW; rainC.height=FH;
+  updMapInfo();
 }
 window.addEventListener('resize',resize);
 
+// ═══════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════
 document.addEventListener('keydown',e=>{
   if(e.code==='Space'){e.preventDefault();
     if(G.gs==='idle') startCast();
@@ -719,18 +1116,24 @@ document.addEventListener('keydown',e=>{
 });
 document.addEventListener('keyup',e=>{if(e.code==='Space'&&G.gs==='casting') relCast();});
 
+// ═══════════════════════════════════
+// GAME LOOP
+// ═══════════════════════════════════
 function loop(ts){
+  const t=ts*.001;
   const as=document.querySelector('.scr.on');
-  if(as&&as.id==='sFish'){fc.clearRect(0,0,FW,FH);drawFishScene(ts*.001);drawMM();}
+  if(as){
+    if(as.id==='sMap'){drawBeautifulMap(t);}
+    else if(as.id==='sFish'){fc.clearRect(0,0,FW,FH);drawFishScene(t);drawMM();}
+  }
   requestAnimationFrame(loop);
 }
 
-// Register service worker for PWA
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js').catch(()=>{});
-}
+// PWA
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
 
-setTimeout(()=>{resize();requestAnimationFrame(loop);},50);
+// INIT
+setTimeout(()=>{resize();updHUD();requestAnimationFrame(loop);},50);
 </script>
 </body>
 </html>
